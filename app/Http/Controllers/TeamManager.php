@@ -12,7 +12,7 @@ class TeamManager extends Controller
      */
     public function index()
     {
-        return view('dashboard/pages/team',['datas' => team::get()]);
+        return view('dashboard/pages/menu',['datas' => team::orderBy('id','desc')->get()]);
     }
 
     /**
@@ -37,7 +37,7 @@ class TeamManager extends Controller
         ]);
         if($user){
             return response()->json(
-              [
+              ['formdata' => $user,
                'status' => 200,
                 'message' => 'User Created Successfully',
                 

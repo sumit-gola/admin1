@@ -3,26 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\TeamManager;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\PageManager;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 })->name('home');
-
-// Route::get('/sign-up', function () {
-//     return view('auth.signup');
-// })->name('auth.sign-up');
 
 Route::get('/login',[AuthManager::class,'loginView'])->name('auth.sign-in');
 Route::get('/sign-up',[AuthManager::class,'registrationView'])->name('auth.sign-up');
@@ -36,13 +21,25 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/dashboard', function () {
         return view('dashboard/dashboard');
     })->name('dashboard ');
-    // Route::get('/teams', function () {
-    //     return view('dashboard/pages/team');
-    // });
+
     Route::get('/teams',[TeamManager::class,'index']);
+    Route::get('/menu',[TeamManager::class,'index']);
 
 });
 
 
 
 Route::resource('team',TeamManager::class);
+
+
+
+
+
+
+
+
+
+Route::get('/menu',[TeamManager::class,'index'])->name('page.menu');
+Route::get('/about', function () {
+    return view('pages/about');
+})->name('web.about');

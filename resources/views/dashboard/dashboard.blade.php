@@ -1,12 +1,12 @@
-
 <!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+    data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
 
 
 <head>
 
     <meta charset="utf-8" />
-    <title>To Do Lists |  - Admin </title>
+    <title>To Do Lists | - Admin </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin " name="description" />
     <meta content="Themesbrand" name="author" />
@@ -28,8 +28,9 @@
     <!-- custom Css-->
     <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
 
 </head>
 
@@ -38,42 +39,32 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
 
-       @include('dashboard.topbar')
-
+        @include('dashboard.topbar')
         <!-- ========== App Menu ========== -->
         @include('dashboard.sidebar')
-        <!-- Left Sidebar End -->
-        <!-- Vertical Overlay-->
         <div class="vertical-overlay"></div>
-
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
         <div class="main-content">
-                    @yield('content')
+            @yield('content')
             <!-- End Page-content -->
-          @include('dashboard.footer')
-
-            <!-- end main content-->
-
+            @include('dashboard.footer')
         </div>
-        <!-- END layout-wrapper -->
 
-   
 
-   
 
-    <!-- JAVASCRIPT -->
-    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="assets/libs/node-waves/waves.min.js"></script>
-    <script src="assets/libs/feather-icons/feather.min.js"></script>
-    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-    <script src="assets/js/plugins.js"></script>
-  
-     @stack('scripts')
-    <!-- App js -->
-    <script src="assets/js/app.js"></script>
+
+
+
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+        <script src="assets/libs/feather-icons/feather.min.js"></script>
+        <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <script src="assets/js/plugins.js"></script>
+        <script src="assets/js/app.js"></script>
+
+        @stack('scripts')
+        <!-- App js -->
 
 </body>
 
