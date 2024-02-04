@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\team;
+use Illuminate\Support\Str;
 
 class TeamManager extends Controller
 {
@@ -14,6 +15,7 @@ class TeamManager extends Controller
     {
         return view('dashboard/pages/menu',['datas' => team::orderBy('id','desc')->get()]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -29,9 +31,12 @@ class TeamManager extends Controller
      */
     public function store(Request $request)
     {
+      
+ 
+        $slug = Str::of( $request->designation)->slug('-');
         $user =  team::create([
             'name' => $request->name,
-            'description' => $request->designation,
+            'description' =>$slug,
             
 
         ]);
@@ -69,7 +74,19 @@ class TeamManager extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = team::find($id);
+        $user->name = $request->name;
+        $user->description = $request->slug;
+        $user->save();
+        return response()->json(
+            [   
+                'formdata' => $user,
+                'status' => 200,
+                'message' => 'User update Successfully',
+            ]   
+        ); 
+
+        
     }
 
     /**
@@ -77,6 +94,15 @@ class TeamManager extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Find the user by id
+        $user = team::find($id);
+        // Delete the user from the database
+        $user->delete();
+        return response()->json(
+          [
+          'status' => 200,
+           'message' => 'User Deleted Successfully',
+          ]);
+        
     }
 }

@@ -1,262 +1,409 @@
 @extends('dashboard.dashboard')
 @section('content')
-<div class="">
+    <div class="">
 
-    <div class="page-content">
-        <div class="container-fluid">
+        <div class="page-content">
+            <div class="container-fluid">
 
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                        <h4 class="mb-sm-0">API Key</h4>
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div
+                            class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                            <h4 class="mb-sm-0">API Key</h4>
 
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
-                                <li class="breadcrumb-item active">API Key</li>
-                            </ol>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+                                    <li class="breadcrumb-item active">API Key</li>
+                                </ol>
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
-            </div>
-            <!-- end page title -->
+                <!-- end page title -->
 
-        
-            <!-- end row -->
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card" id="apiKeyList">
-                        <div class="card-header d-flex align-items-center">
-                            <h5 class="card-title flex-grow-1 mb-0">API Keys</h5>
-                            <div class="d-flex gap-1 flex-wrap">
-                                <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                                <button type="button" class="btn btn-success create-btn" data-bs-toggle="modal" data-bs-target="#api-key-modal"><i class="ri-add-line align-bottom me-1"></i> Add API Key</button>
+                <!-- end row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card" id="apiKeyList">
+                            <div class="card-header d-flex align-items-center">
+                                <h5 class="card-title flex-grow-1 mb-0">API Keys</h5>
+                                <div class="d-flex gap-1 flex-wrap">
+                                    <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i
+                                            class="ri-delete-bin-2-line"></i></button>
+                                    <button type="button" class="btn btn-success create-btn" data-bs-toggle="modal"
+                                        data-bs-target="#api-key-modal"><i class="ri-add-line align-bottom me-1"></i> Add
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <div>
-                                <div class="table-responsive table-card mb-3">
-                                    <table class="table align-middle table-nowrap mb-0">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th scope="col" style="width: 50px;">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                                    </div>
-                                                </th>
-                                                <th class="sort d-none" data-sort="id" scope="col">Id</th>
-                                                <th class="sort" data-sort="name" scope="col">Name</th>
-                                                <th class="sort" data-sort="createBy" scope="col">Slug</th>
-                                               
-                                                <th class="sort" data-sort="create_date" scope="col">Create Date</th>
-                                                <th class="sort" data-sort="expiry_date" scope="col">Updated Date</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="list form-check-all" id="tbody">
-                                        @foreach ($datas as $data)
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">{{ $data->id }}</a></td>
-                                                <td class="name">{{ $data->name }}</td>
-                                                <td class="createBy">{{ $data->description }}</td>
+                            <div class="card-body">
+                                <div>
+                                    <div class="table-responsive table-card mb-3">
+                                        <table class="table align-middle table-nowrap mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col" style="width: 50px;">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAll"
+                                                                value="option">
+                                                        </div>
+                                                    </th>
+                                                    <th class="sort d-none" data-sort="id" scope="col">Id</th>
+                                                    <th class="sort" data-sort="name" scope="col">Name</th>
+                                                    <th class="sort" data-sort="createBy" scope="col">Slug</th>
 
-                                                <td class="create_date">{{ $data->created_at }}2</td>
-                                                <td class="expiry_date">{{ $data->updated_at }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="ri-more-fill align-middle"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item edit-item-btn" href="#api-key-modal" data-bs-toggle="modal">Rename</a></li>
-                                                            <li><a class="dropdown-item regenerate-api-btn" href="#api-key-modal" data-bs-toggle="modal">Regenerate Key</a></li>
-                                                            <li><a class="dropdown-item disable-btn" href="javascript:void(0);">Disable</a></li>
-                                                            <li><a class="dropdown-item remove-item-btn" data-bs-toggle="modal" href="#deleteApiKeyModal">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="noresult" style="display: none">
-                                        <div class="text-center">
-                                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
-                                            <h5 class="mt-2">Sorry! No Result Found</h5>
-                                            <p class="text-muted mb-0">We've searched more than 150+ API Keys We did not find any API for you search.</p>
+                                                    <th class="sort" data-sort="create_date" scope="col">Create Date
+                                                    </th>
+                                                    <th class="sort" data-sort="expiry_date" scope="col">Updated Date
+                                                    </th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list form-check-all" id="tbody">
+                                                @foreach ($datas as $data)
+                                                    <tr id="row_todo_{{ $data->id }}">
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="chk_child" value="option1">
+                                                            </div>
+                                                        </th>
+                                                        <td class="id" style="display:none;"><a
+                                                                href="javascript:void(0);"
+                                                                class="fw-medium link-primary">{{ $data->id }}</a></td>
+                                                        <td class="name">{{ $data->name }}</td>
+                                                        <td class="slug">{{ $data->description }}</td>
+
+                                                        <td class="create_date">
+                                                            {{ date_format($data->created_at, 'd-m-Y') }}</td>
+                                                        <td class="expiry_date">
+                                                            {{ date_format($data->updated_at, 'd-m-Y') }}</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-soft-secondary btn-sm dropdown"
+                                                                    type="button" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false">
+                                                                    <i class="ri-more-fill align-middle"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    <li><a class="dropdown-item regenerate-api-btn"
+                                                                            href="" id="editRow"
+                                                                            data-id="{{ $data->id }}"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#api-key-modal">Edit</a></li>
+                                                                    <li><a class="dropdown-item remove-item-btn"
+                                                                            id="deleteRow" data-bs-toggle="modal"
+                                                                            data-id="{{ $data->id }}"
+                                                                            href="">Delete</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <div class="noresult" style="display: none">
+                                            <div class="text-center">
+                                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                                    colors="primary:#121331,secondary:#08a88a"
+                                                    style="width:75px;height:75px"></lord-icon>
+                                                <h5 class="mt-2">Sorry! No Result Found</h5>
+                                                <p class="text-muted mb-0">We've searched more than 150+ API Keys We did not
+                                                    find any API for you search.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <div class="pagination-wrap hstack gap-2">
+                                            <a class="page-item pagination-prev disabled" href="#">
+                                                Previous
+                                            </a>
+                                            <ul class="pagination listjs-pagination mb-0"></ul>
+                                            <a class="page-item pagination-next" href="#">
+                                                Next
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end mt-3">
-                                    <div class="pagination-wrap hstack gap-2">
-                                        <a class="page-item pagination-prev disabled" href="#">
-                                            Previous
-                                        </a>
-                                        <ul class="pagination listjs-pagination mb-0"></ul>
-                                        <a class="page-item pagination-next" href="#">
-                                            Next
-                                        </a>
-                                    </div>
-                                </div>
+                            </div>
+                            <!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="api-key-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create API Key</h5>
+                        <button type="button" class="btn-close" id="close-modal" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off" id="form">
+                            <div id="api-key-error-msg" class="alert alert-danger py-2 d-none"></div>
+                            <input type="hidden" id="apikeyId">
+                            <div class="mb-3">
+                                <label for="api-key-name" class="form-label"> Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="api-key-name"
+                                    placeholder="Enter api key name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label"> Slug <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="slug" placeholder="Enter Slug">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="hstack gap-2 justify-content-end">
+
+                            <button type="button" class="btn btn-primary" id="add-btn1">Add</button>
+                            <button type="button" class="btn btn-primary" id="edit-btn" style="display:none;">Save
+                                Changes</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal content -->
+            </div>
+        </div>
+        <!-- end modal -->
+
+        <!-- Modal -->
+        <div class="modal fade zoomIn" id="deleteApiKeyModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="deleteRecord-close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-2 text-center">
+                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                            <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                <h4>Are you Sure ?</h4>
+                                <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this API Key ?</p>
                             </div>
                         </div>
-                        <!-- end card body -->
+                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete
+                                It!</button>
+
+                        </div>
                     </div>
-                    <!-- end card -->
-                </div>
-                <!-- end col -->
+
+                </div><!-- /.modal-content -->
             </div>
-            <!-- end row -->
         </div>
-        <!-- container-fluid -->
+        <!--end modal -->
+
+
     </div>
-    <!-- End Page-content -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="api-key-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create API Key</h5>
-                    <button type="button" class="btn-close" id="close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form autocomplete="off">
-                        <div id="api-key-error-msg" class="alert alert-danger py-2 d-none"></div>
-                        <input type="hidden" id="apikeyId">
-                        <div class="mb-3">
-                            <label for="api-key-name" class="form-label">API Key Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control"  id="api-key-name" placeholder="Enter api key name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="" class="form-label"> Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control"  id="slug" placeholder="Enter Slug">
-                        </div>
-                        {{-- <div class="mb-3" id="apikey-element" style="display: none;">
-                            <label for="api-key" class="form-label">API Key</label>
-                            <input type="text" class="form-control" id="api-key" disabled value="b5815DE8A7224438932eb296Z5">
-                        </div> --}}
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <div class="hstack gap-2 justify-content-end">
-                        {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="createApi-btn">Create API</button> --}}
-                        <button type="button" class="btn btn-primary" id="add-btn1">Add</button>
-                        {{-- <button type="button" class="btn btn-primary" id="edit-btn">Save Changes</button> --}}
-                    </div>
-                </div>
-            </div>
-            <!-- modal content -->
-        </div>
-    </div>
-    <!-- end modal -->
-
-    <!-- Modal -->
-    <div class="modal fade zoomIn" id="deleteApiKeyModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="deleteRecord-close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mt-2 text-center">
-                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                            <h4>Are you Sure ?</h4>
-                            <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this API Key ?</p>
-                        </div>
-                    </div>
-                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
-                    </div>
-                </div>
-
-            </div><!-- /.modal-content -->
-        </div>
-    </div>
-    <!--end modal -->
-
-
-</div>
 @endsection
 
 @push('scripts')
-{{-- <script src="assets/libs/list.js/list.min.js"></script>
+    {{-- <script src="assets/libs/list.js/list.min.js"></script>
 <script src="assets/libs/list.pagination.js/list.pagination.min.js"></script> --}}
 
-<!-- Sweet Alerts js -->
-<script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
-{{-- <script src="assets/js/pages/api-key.init.js"></script> --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js" ></script>
+    <!-- Sweet Alerts js -->
+    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    {{-- <script src="assets/js/pages/api-key.init.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"></script>
 
-<script>
-      $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    });
-   
- 
-    $("body").on('click','#add-btn1',function(e){
-        
-        e.preventDefault();
-        var name = $('#api-key-name').val();
-        var slug = $('#slug').val();
-
-        var data = {
-            name: name,
-            designation: slug
-        }
-        axios.post("{{ route('team.store') }}", data)
-        .then(function (response) {
-            console.log(response);
-            var newRow = '<tr>'
-                                                +'<th scope="row">'
-                                                    +'<div class="form-check">'
-                                                        +'<input class="form-check-input" type="checkbox" name="chk_child" value="option1">'
-                                                    +'</div>'
-                                                +'</th>'
-                                                +'<td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">'+response.data.formdata.id+'</a></td>'
-                                                +'<td class="name">'+response.data.formdata.name+'</td>'
-                                                +'<td class="name">'+response.data.formdata.description+'</td>'
-                                                +'<td class="create_date">'+response.data.formdata.created_at+'</td>'
-                                                +'<td class="expiry_date">'+response.data.formdata.updated_at+'</td>'
-                                               +' </tr>';
-            $("#tbody").prepend(newRow);
-            // console.log(response,status);
-            
-            if(response.data.status == 200) {
-                $("#close-modal").click();
-                Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Application inserted successfully!",
-                showConfirmButton: !1,
-                timer: 2e3,
-                showCloseButton: !0,
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
-                
-            }
-           
-        })
-        .catch(function (error) {
-            console.log(error);
         });
-       
-     
-    });
+        $("body").on('click', '#editRow', function(e) {
+            e.preventDefault();
+            $("#edit-btn").show();
+            $('#add-btn1').hide();
+            let id = $(this).data('id');
+            // alert('Please enter'+id);
+            $("#exampleModalLabel").text("Edit ");
+            let name = $('#row_todo_' + id + ' ' + '.name').text();
+            let slug = $('#row_todo_' + id + ' ' + '.slug').text();
+            $("#api-key-name").val(name)
+            $("#slug").val(slug)
+            // console.log(name ,slug);
 
-</script>
+
+
+        });
+        $("body").on('click', '#edit-btn', function(e) {
+            e.preventDefault();
+            let id = $('#editRow').data('id');
+            console.log(id);
+            let name = $("#api-key-name").val();
+            let slug = $("#slug").val();
+
+            let dataU = {
+                name: name,
+                slug: slug
+            }
+            let url = window.location.origin + '/team/' + id;
+            axios.put(url, dataU)
+                .then(response => {
+                    console.log(response);
+
+
+                    // $("#tbody").prepend(newRow);
+                    // console.log(response,status);
+
+                    if (response.data.status == 200) {
+                        $("#row_todo_" + id).remove();
+                        let newRow = '<tr id="row_todo_' + response.data.formdata.id + '"' + '>' +
+                            '<th scope="row">' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input" type="checkbox" name="chk_child" value="option1">' +
+                            '</div>' +
+                            '</th>' +
+                            '<td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">' +
+                            response.data.formdata.id + '</a></td>' +
+                            '<td class="name">' + response.data.formdata.name + '</td>' +
+                            '<td class="name">' + response.data.formdata.description + '</td>' +
+                            '<td class="create_date">' + response.data.formdata.created_at + '</td>' +
+                            '<td class="expiry_date">' + response.data.formdata.updated_at + '</td>' +
+                            '<td>' +
+                            '<div class="dropdown">' +
+                            '<button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">' +
+                            '<i class="ri-more-fill align-middle"></i>' +
+                            '</button>' +
+                            '<ul class="dropdown-menu dropdown-menu-end">' +
+                            '<li><a class="dropdown-item regenerate-api-btn" href="" data-bs-toggle="modal">Edit</a></li>' +
+                            '<li><a class="dropdown-item remove-item-btn" id="deleteRow" data-bs-toggle="modal" data-id="' +
+                            response.data.formdata.id + '" href="">Delete</a></li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</td>' +
+                            ' </tr>';
+                        $("#tbody").prepend(newRow);
+                        $("#close-modal").click();
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: " Update successfully!",
+                            showConfirmButton: !1,
+                            timer: 1e3,
+                            showCloseButton: !0,
+                        });
+                        $('#form').trigger('reset');
+
+                    }
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
+
+        $("body").on('click', '#deleteRow', function(e) {
+
+            let id = $(this).data('id');
+            let url = window.location.origin + '/team/' + id;
+
+
+            axios.delete(url)
+                .then(response => {
+                    $("#row_todo_" + id).remove();
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Delete successfully!",
+                        showConfirmButton: !1,
+                        timer: 1e3,
+                        showCloseButton: !0,
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+
+        });
+
+        $("body").on('click', '#add-btn1', function(e) {
+
+            e.preventDefault();
+            var name = $('#api-key-name').val();
+            var slug = $('#slug').val();
+
+            var data = {
+                name: name,
+                designation: slug
+            }
+            axios.post("{{ route('team.store') }}", data)
+                .then(function(response) {
+                    console.log(response);
+                    var newRow = '<tr id="row_todo_' + response.data.formdata.id + '"' + '>' +
+                        '<th scope="row">' +
+                        '<div class="form-check">' +
+                        '<input class="form-check-input" type="checkbox" name="chk_child" value="option1">' +
+                        '</div>' +
+                        '</th>' +
+                        '<td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">' +
+                        response.data.formdata.id + '</a></td>' +
+                        '<td class="name">' + response.data.formdata.name + '</td>' +
+                        '<td class="name">' + response.data.formdata.description + '</td>' +
+                        '<td class="create_date">' + response.data.formdata.created_at + '</td>' +
+                        '<td class="expiry_date">' + response.data.formdata.updated_at + '</td>' +
+                        '<td>' +
+                        '<div class="dropdown">' +
+                        '<button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">' +
+                        '<i class="ri-more-fill align-middle"></i>' +
+                        '</button>' +
+                        '<ul class="dropdown-menu dropdown-menu-end">' +
+                        '<li><a class="dropdown-item regenerate-api-btn" href="" data-bs-toggle="modal">Edit</a></li>' +
+                        '<li><a class="dropdown-item remove-item-btn" id="deleteRow" data-bs-toggle="modal" data-id="' +
+                        response.data.formdata.id + '" href="">Delete</a></li>' +
+                        '</ul>' +
+                        '</div>' +
+                        '</td>' +
+                        ' </tr>';
+                    $("#tbody").prepend(newRow);
+                    // console.log(response,status);
+
+                    if (response.data.status == 200) {
+                        $("#close-modal").click();
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Application inserted successfully!",
+                            showConfirmButton: !1,
+                            timer: 2e3,
+                            showCloseButton: !0,
+                        });
+                        $('#form').trigger('reset');
+
+                    }
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
+
+        });
+    </script>
 @endpush
