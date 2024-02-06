@@ -219,7 +219,7 @@
 
 @push('scripts')
     {{-- <script src="assets/libs/list.js/list.min.js"></script>
-<script src="assets/libs/list.pagination.js/list.pagination.min.js"></script> --}}
+    <script src="assets/libs/list.pagination.js/list.pagination.min.js"></script> --}}
 
     <!-- Sweet Alerts js -->
     <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>

@@ -170,7 +170,6 @@ var idField = document.getElementById("apikeyId"),
     removeBtns = document.getElementsByClassName("remove-item-btn"),
     editBtns = document.getElementsByClassName("edit-item-btn");
 
-
 function generateApiID() {
     var n = new Date().getTime();
     return (
@@ -377,7 +376,6 @@ document
             (e.target.style.display = "none"),
             (document.getElementById("add-btn").style.display = "block"));
     }),
-
     addBtn.addEventListener("click", function (e) {
         var t = document.getElementById("api-key-error-msg");
         if (

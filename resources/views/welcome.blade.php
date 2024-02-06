@@ -18,7 +18,7 @@
         <!-- Layout config Js -->
         <script src="assets/js/layout.js"></script>
         <!-- Bootstrap Css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
@@ -191,6 +191,7 @@
                 <!-- end container -->
             </section>
             <!-- end hero section -->
+         
 
             <section class="section" id="process">
                 <div class="container">

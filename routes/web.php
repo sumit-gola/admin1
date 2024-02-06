@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\TeamManager;
 use App\Http\Controllers\PageManager;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\BlogManager;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -25,21 +27,24 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/teams',[TeamManager::class,'index']);
     Route::get('/menu',[TeamManager::class,'index']);
 
+    Route::resource('team',TeamManager::class);
+    Route::get('/menu',[TeamManager::class,'index'])->name('page.menu');
+
+    Route::get('/add-blog', function () {
+        return view('dashboard.pages.blogs.addblog ');
+    });
+    Route::post('/add-blog',[PagesController::class,'store'] )->name('blogs.add-blog');
 });
 
 
 
-Route::resource('team',TeamManager::class);
 
 
 
 
+Route::get('/blogs/{id?}',[BlogManager::class,'singleUser'])->name('blogs.show');
+Route::get('/blogdetails',[PagesController::class,'index'])->name('blogdetails');
+
+Route::get('/all-blogs',[BlogManager::class,'allBlogs'])->name('all-blogs');
 
 
-
-
-
-Route::get('/menu',[TeamManager::class,'index'])->name('page.menu');
-Route::get('/about', function () {
-    return view('pages/about');
-})->name('web.about');

@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>To Do Lists | - Admin </title>
+    <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin " name="description" />
     <meta content="Themesbrand" name="author" />
@@ -30,6 +30,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    @stack('style')
 
 
 </head>
